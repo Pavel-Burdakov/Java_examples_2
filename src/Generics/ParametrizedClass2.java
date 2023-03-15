@@ -1,4 +1,4 @@
-package generics;
+package Generics;
 
 
 class Pair<V1, V2>{

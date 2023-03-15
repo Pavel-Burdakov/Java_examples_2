@@ -1,4 +1,4 @@
-package generics.game;
+package Generics.Game;
 
 public class Student extends Participant {
     public Student(String name, int agr) {

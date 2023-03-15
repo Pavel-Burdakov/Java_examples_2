@@ -1,4 +1,4 @@
-package generics.game;
+package Generics.Game;
 
 public abstract class Participant {
 
