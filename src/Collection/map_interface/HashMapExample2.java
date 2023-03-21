@@ -42,6 +42,14 @@ public class HashMapExample2 {
         * даже если его не переопределять он есть, но будет работать не корректно
         *
         * */
+
+        /*
+        * дефолтный hashСode возвращает число рассчитанное от адреса объекта,
+        * поэтому дефолтный hashCode для объектов с одинаковым содержимым будет
+        * возвращать разные значения int, что не хорошо
+         */
+
+
         Student st4 = new Student("Zaur", "Tregulov", 3);
         Student st5 = new Student("Leonardo", "Da Vinci", 5);
 
@@ -55,16 +63,71 @@ public class HashMapExample2 {
         System.out.println(st4.hashCode());
         System.out.println(st5.hashCode());
 
+        // получение ключа и элемента с помощью entryset
+        // entryset возвращает множество entry (это интерфейс внутренний для map),
+        // который имплементируется нашим классом внутренним для map node
+        // node содержит ключ значение, хэш ключа и ссылку на следующий элемент,
+        // поэтому с помощью entry мы можем добраться и до ключа и до значения
+        for (Map.Entry<Student, Double> entry: map.entrySet()){
+            System.out.println(entry.getKey() + " : " + entry.getValue() );
+        }
+
+
+        /*
+        класс из hashMap, где лежит все самое интересное
+        node (узел)  чаще называют entry, т.к. он имплементирует этот интерфейс
+
+        static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        V value;
+        Node<K,V> next;
+
+        Node(int hash, K key, V value, Node<K,V> next) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+
+         */
+
+
+        /*
+        * дефолтные значения - массив из 16 элементов,
+        * когда будет добавлено 16*0,75 = 12 элементов размер нашего массива будет увеличен вдвое
+        * и произойдет ре - хэширование, т.е. заново будет определяться место их положения.
+        * чем больше начальный Capasity, тем больше памяти будет занимать массив,
+        * но тем меньше будут linkedlist -ы, и тем быстрее будет поиск.
+        *
+        * чем больше loadfactor, тем больше мы экономим памяти, но тем бол ше занимает
+        * поиск элементов
+         */
+        Map<Integer, String> map2 = new HashMap<>(16, 0.75f);
+
+        /* РЕКОМЕНДУЕТСЯ
+        * ключ в hashMap должен быть immutable
+        * например сделать класс и поля выступающие ключом final
+        * потому что если элемент изменился по ключу мы больше не найдем этот элемент
+        *
+         */
+
+
+        // hashMap - not synchronized коллекция,
+        // не предназначена для многопоточного программирования
+
+
+
     }
 
 }
 
 
-class Student{
+final class Student{
 
-    String name;
-    String surname;
-    int course;
+    final String name;
+    final String surname;
+    final int course;
 
     public Student(String name, String surname, int course) {
         this.name = name;
