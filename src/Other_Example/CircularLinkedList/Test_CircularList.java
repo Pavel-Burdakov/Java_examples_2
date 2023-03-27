@@ -1,4 +1,4 @@
-package Other_Example;
+package Other_Example.CircularLinkedList;
 
 public class Test_CircularList {
 
